@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <% data.forEach(function(solution){ %>
+      <h2><%= solution.title %></h2>
+      <p><%- solution.content %></p>
+    <% }) %>
+  </body>
+</html>

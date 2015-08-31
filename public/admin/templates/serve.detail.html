@@ -1,0 +1,23 @@
+<div>
+  <form>
+    {{solutionList[0].title.zh}}
+    <p>中文标题</p>
+    <input class="form-control" placeholder="title" ng-model="serve.title.zh">
+    <p>英文标题</p>
+    <input class="form-control" placeholder="title" ng-model="serve.title.en">
+    <p>中文长标题</p>
+    <input class="form-control" placeholder="title" ng-model="serve.title.zhLong">
+    <p>英文长标题</p>
+    <input class="form-control" placeholder="title" ng-model="serve.title.enLong">
+    <p>描述</p>
+    <input class="form-control" placeholder="title" ng-model="serve.description">
+    <text-angular ng-model="serve.content">
+    </text-angular>
+    <div class="checkbox" ng-repeat="solution in solutions">
+      <label>
+        <input type="checkbox" ng-model="solution.isChecked"> {{solution.title.zh}}
+      </label>
+    </div>
+    <button type="submit" class="btn btn-default" ng-click="submit()">保存</button>
+  </form>
+</div>
