@@ -1,0 +1,10 @@
+db.articles.insert([
+{titles:{default:'测试1'},
+slug:'test-1',
+author:ObjectId("55e44a77da231784c5f8d8f2"),
+description:'描述test',
+content:'asdfkaljfdakls;fksaldfja;sfjask;fjksa;f;asdjfk;as',
+comments:[{author:ObjectId("55e44a77da231784c5f8d8f2"),content:'1024'}],
+tags:['tagTest'],
+category:ObjectId("55e449e649c9d78d8ca5912d")
+}])

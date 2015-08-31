@@ -4,19 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Admin</title>
-  <link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap-theme.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/textAngular.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/angular-material.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <script type="text/javascript" src="../javascripts/lodash.js"></script>
 
   <script type="text/javascript" src="../javascripts/angular.js"></script>
   <script type="text/javascript" src="../javascripts/angular-resource.js"></script>
   <script type="text/javascript" src="../javascripts/angular-ui-router.js"></script>
-  <script type="text/javascript" src="../javascripts/ui-bootstrap.js"></script>
-  <script type="text/javascript" src="../javascripts/ui-bootstrap-tpls.js"></script>
   <script type="text/javascript" src="../javascripts/angular-animate.js"></script>
   <script type="text/javascript" src="../javascripts/angular-aria.js"></script>
   <script type="text/javascript" src="../javascripts/angular-material.js"></script>
@@ -36,29 +33,27 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Brand</a>
-      </div>
-    </div>
-    <!-- /.container-fluid -->
-  </nav>
-  <div class="container-fluid">
-    <div class="row">
-      <section class="col-xs-4">
-        <div class="list-group">
-          <a ui-sref-active="active" ui-sref="news" class="list-group-item">新闻news</a>
-          <a ui-sref-active="active" ui-sref="serve" class="list-group-item">服务serve</a>
-          <a ui-sref-active="active" ui-sref="solution" class="list-group-item">方案solution</a>
-        </div>
-      </section>
-      <section class="col-xs-8">
-        <div ui-view="main"></div>
-      </section>
-    </div>
+
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <span>My App's Title</span>
+    <!-- fill up the space between left and right area -->
+    <span flex></span>
+    <md-button>
+      Right Bar Button
+    </md-button>
   </div>
+</md-toolbar>
+
+<div ui-view="main"></div>
+
+  <!--<md-sidenav class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')">-->
+    <!--<md-content layout-padding>-->
+
+    <!--</md-content>-->
+  <!--</md-sidenav>-->
+
+
 </body>
 
 </html>

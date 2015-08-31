@@ -19,6 +19,8 @@ router.get('/admin/category/:id', category.getById, category.admin.getById)
 router.post('/admin/category', category.create, category.admin.create)
 router.put('/admin/category/:id', category.updateById, category.admin.updateById)
 router.del('/admin/category/:id', category.deleteById, category.admin.deleteById)
+//获取所属类别文章
+router.get('/admin/category-articles/:categoryId',category.getCategoryArticles,category.admin.getCategoryArticles)
 
 //author
 router.get('/admin/author', author.getAll, author.admin.getAll)
@@ -26,6 +28,7 @@ router.get('/admin/author/:id', author.getById,author.admin.getById)
 router.post('/admin/author', author.create, author.admin.create)
 router.put('/admin/author/:id', author.updateById, author.admin.updateById)
 router.del('/admin/author/:id', author.deleteById, author.admin.deleteById)
+
 
 
 module.exports = router
