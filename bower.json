@@ -1,0 +1,22 @@
+{
+  "name": "Koa-Cms",
+  "version": "0.0.1",
+  "homepage": "https://github.com/tiantianquan/Koa-Cms",
+  "authors": [
+    "tiantianquan <fenqiufen@gmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-markdown-directive": "~0.3.1"
+  }
+}

@@ -6,3 +6,5 @@ var author = base.init(Author)
 author.admin = base.boundAdmin()
 
 module.exports = author
+
+

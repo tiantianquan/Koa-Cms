@@ -35,7 +35,12 @@ module.exports = {
         yield next
       },
       create: function* (next) {
-        this.state.doc = yield model.create(this.request.body).exec()
+        try {
+          this.state.doc = yield model.create(this.request.body).exec()
+        }
+        catch(err){
+          console.log(err)
+        }
         yield next
       },
       deleteById: function* (next) {

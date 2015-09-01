@@ -7,25 +7,35 @@
   <link rel="stylesheet" type="text/css" href="../stylesheets/textAngular.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="../stylesheets/angular-material.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
 
   <script type="text/javascript" src="../javascripts/lodash.js"></script>
-
+  <!--angular-->
   <script type="text/javascript" src="../javascripts/angular.js"></script>
   <script type="text/javascript" src="../javascripts/angular-resource.js"></script>
   <script type="text/javascript" src="../javascripts/angular-ui-router.js"></script>
+  <!--angular-material-->
   <script type="text/javascript" src="../javascripts/angular-animate.js"></script>
   <script type="text/javascript" src="../javascripts/angular-aria.js"></script>
   <script type="text/javascript" src="../javascripts/angular-material.js"></script>
-  <script type="text/javascript" src="../javascripts/angular-material-mocks.js"></script>
+  <!--<script type="text/javascript" src="../javascripts/angular-material-mocks.js"></script>-->
 
 
   <script type="text/javascript" src="../javascripts/ng-file-upload-shim.js"></script>
   <script type="text/javascript" src="../javascripts/ng-file-upload.js"></script>
 
-  <script type="text/javascript" src="../javascripts/textAngular-rangy.min.js"></script>
-  <script type="text/javascript" src="../javascripts/textAngular-sanitize.js"></script>
-  <script type="text/javascript" src="../javascripts/textAngular.min.js"></script>
+  <!--富文本-->
+  <!--<script type="text/javascript" src="../javascripts/textAngular-rangy.min.js"></script>-->
+  <!--<script type="text/javascript" src="../javascripts/textAngular-sanitize.js"></script>-->
+  <!--<script type="text/javascript" src="../javascripts/textAngular.min.js"></script>-->
+
+  <!--markdown-->
+  <script type="text/javascript" src="../javascripts/angular-sanitize.js"></script>
+  <script type="text/javascript" src="../javascripts/showdown.js"></script>
+  <script type="text/javascript" src="../javascripts/ng-showdown.js"></script>
+
+  <!--<script type="text/javascript" src="../javascripts/markdown.js"></script>-->
+
 
   <script type="text/javascript" src="./js/app.js"></script>
   <script type="text/javascript" src="./js/controllers.js"></script>
@@ -39,20 +49,14 @@
     <span>My App's Title</span>
     <!-- fill up the space between left and right area -->
     <span flex></span>
-    <md-button>
-      Right Bar Button
+    <md-button ui-sref="category">分类</md-button>
+    <md-button class="md-fab md-primary" ui-sref="article.create">
+      <md-icon md-svg-src="../fonts/icons/ic_add_24px.svg" aria-label="add"></md-icon>
     </md-button>
   </div>
 </md-toolbar>
 
 <div ui-view="main"></div>
-
-  <!--<md-sidenav class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')">-->
-    <!--<md-content layout-padding>-->
-
-    <!--</md-content>-->
-  <!--</md-sidenav>-->
-
 
 </body>
 

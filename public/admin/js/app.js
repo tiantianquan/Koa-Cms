@@ -1,4 +1,5 @@
-angular.module('admin', ['ui.router', 'ngMaterial', 'ngResource', 'ngFileUpload', 'textAngular', 'admin.controllers', 'admin.models'])
+angular.module('admin', ['ui.router', 'ngSanitize','ng-showdown', 'ngMaterial', 'ngResource', 'ngFileUpload'
+  , 'admin.controllers', 'admin.models'])
 
   .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -19,7 +20,7 @@ angular.module('admin', ['ui.router', 'ngMaterial', 'ngResource', 'ngFileUpload'
       })
 
       .state('category.articles', {
-        url: '/category/:id',
+        url: '/:id',
         views: {
           'submain': {
             templateUrl: 'templates/category.articles.html',
@@ -29,11 +30,25 @@ angular.module('admin', ['ui.router', 'ngMaterial', 'ngResource', 'ngFileUpload'
       })
 
       .state('article', {
-        url: '/article/:id',
+        url: '/article',
+      })
+
+      .state('article.create', {
+        url: '/create',
         views: {
-          'submain': {
-            templateUrl: 'templates/article.html',
-            controller: 'ArticleCtrl'
+          'main@': {
+            templateUrl: 'templates/article.edit.html',
+            controller: 'ArticleCreateCtrl'
+          }
+        }
+      })
+
+      .state('article.edit', {
+        url: '/:id',
+        views: {
+          'main': {
+            templateUrl: 'templates/article.edit.html',
+            controller: 'ArticleEditCtrl'
           }
         }
       })
