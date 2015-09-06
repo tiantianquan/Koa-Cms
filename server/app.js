@@ -4,6 +4,7 @@ var render = require('koa-ejs')
 var static = require('koa-static')
 var path = require('path')
 var bodyParser = require('koa-bodyparser')
+var qs =require('koa-qs')
 
 
 var router = require('./controllers')
@@ -12,6 +13,7 @@ var config = require('../config')
 
 //初始化
 var app = koa();
+qs(app)
 //静态资源
 app.use(static(config.staticPath))
 //链接数据库

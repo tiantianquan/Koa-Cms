@@ -9,10 +9,11 @@ angular.module('admin.controllers', [])
   //类别文章
   .controller('CategoryArticlesCtrl', function ($scope, $mdUtil, $timeout, $mdSidenav, $log, $stateParams, CategoryAtrticles, $mdDialog) {
     $scope.articles = CategoryAtrticles.get({
-      categoryId: $stateParams.id
+      categoryId: $stateParams.id,
+      keys:['title','createDate']
     })
 
-    $scope.toggleRight = buildToggler('right');
+    $scope.preview = buildToggler('right');
     $scope.close = function () {
       $mdSidenav('right').close()
     }

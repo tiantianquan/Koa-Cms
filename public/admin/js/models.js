@@ -76,7 +76,7 @@ angular.module('admin.models', [])
   })
 
   .factory('CategoryAtrticles', function ($resource, ModelUtil) {
-    return $resource('/admin/category-articles/:categoryId',null,{
+    return $resource('/admin/category-articles/:categoryId?keys=:keys',null,{
       get:{
         method:'GET',
         isArray:true
