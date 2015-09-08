@@ -2,8 +2,12 @@ var router = require('koa-router')()
 var article = require('./article')
 var author = require('./author')
 var category = require('./category')
+var send = require('koa-send')
+var config = require('../../config')
+
 
 router.get('/admin', function*(next) {
+  yield send(this,config.staticPaths[1]+'/index.html');
 })
 
 //article
