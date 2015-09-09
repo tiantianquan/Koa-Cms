@@ -1,5 +1,6 @@
 var angular = require('angular')
 var _ = require('lodash')
+
 module.exports = angular.module('article.controllers', [])
   .controller('ArticleCreateCtrl', function ($scope, $state, Article, Category, $window) {
     $scope.article = new Article()
@@ -29,7 +30,7 @@ module.exports = angular.module('article.controllers', [])
     }
   })
 
-  .controller('ArticleEditCtrl', function ($scope, $stateParams, Article, Category,$state) {
+  .controller('ArticleEditCtrl', function ($scope, $stateParams, Article, Category,$state,$window) {
     $scope.categorys = Category.query()
     $scope.article = Article.get({id: $stateParams.id}, function () {
       $scope.selectedItem = _.find($scope.categorys, function (category) {

@@ -60,7 +60,7 @@ module.exports = {
         yield next
       },
       deleteById: function* (next) {
-        this.state.doc = yield model.findByIdAndRemove(req.params.id).exec()
+        this.state.doc = yield model.findByIdAndRemove(this.params.id).exec()
         yield next
       }
     }

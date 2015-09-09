@@ -27,12 +27,13 @@ module.exports = {
         loader: 'style-loader!css-loader'
       }, {
         test: /\.scss$/,
-         loader: 'style-loader!css-loader!sass-loader'
+        loader: 'style-loader!css-loader!sass-loader'
         //loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
       }, {
-        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: 'file-loader?limit=100000',
-      }],
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "url-loader?limit=10000&minetype=application/font-woff"
+      },
+      {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader"}],
   },
   plugins: [
     new ExtractTextPlugin("[name].css")
