@@ -5,9 +5,11 @@ var uiRouter = require('angular-ui-router')
 var article = require('./article')
 var category = require('./category')
 var models = require('./models/models')
+var ngSanitize = require('angular-sanitize')
+showdown = require('showdown')
+require('ng-showdown')
 
-
-var app = angular.module('admin', [uiRouter, ngMaterial, ngResource, article.name, category.name, models.name])
+var app = angular.module('admin', ['ng-showdown',ngSanitize,uiRouter, ngMaterial, ngResource, article.name, category.name, models.name])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -54,7 +56,7 @@ var app = angular.module('admin', [uiRouter, ngMaterial, ngResource, article.nam
   .state('article.edit', {
     url: '/:id',
     views: {
-      'main': {
+      'main@': {
         templateUrl: 'article/templates/article.edit.html',
         controller: 'ArticleEditCtrl'
       }

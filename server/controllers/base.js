@@ -1,3 +1,5 @@
+var _= require('lodash')
+
 module.exports = {
   boundAdmin: function () {
     return {
@@ -31,8 +33,22 @@ module.exports = {
         yield next
       },
       updateById: function*(next) {
-        this.state.doc = yield model.findByIdAndUpdate(this.params.id, this.request.body).exec()
-        yield next
+        //this.state.doc = yield model.findByIdAndUpdate(this.params.id, this.request.body).exec()
+        this.state.doc = yield model.findById(this.params.id).exec()
+        var that = this
+        _.forEach(this.request.body,function(n,key){
+          that.state.doc[key] = n
+        })
+        try {
+          this.state.doc = yield this.state.doc.save().exec()
+          yield next
+        }
+        catch(err){
+          console.log(err)
+          yield next
+        }
+
+
       },
       create: function* (next) {
         try {

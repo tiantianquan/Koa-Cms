@@ -6,7 +6,7 @@ module.exports = angular.module('category.controllers', [])
     $scope.categorys = Category.query()
   })
 
-  .controller('CategoryArticlesCtrl', function ($scope, $mdUtil, $timeout, $mdSidenav, $log, $stateParams, CategoryAtrticles, $mdDialog) {
+  .controller('CategoryArticlesCtrl', function ($scope, $mdUtil, $timeout, $mdSidenav, $log, $stateParams, CategoryAtrticles, Article,$mdDialog) {
     $scope.getData = function (pageNum) {
       var defaultListNum = 10
       CategoryAtrticles.get({
@@ -29,7 +29,10 @@ module.exports = angular.module('category.controllers', [])
     $scope.getData(1)
 
 
-    $scope.preview = buildToggler('right');
+    $scope.preview = function(article){
+      $scope.previewArticle = Article.get({id:article._id})
+      buildToggler('right')()
+    }
     $scope.close = function () {
       $mdSidenav('right').close()
     }
