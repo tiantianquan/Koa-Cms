@@ -1,4 +1,5 @@
 var angular = require('angular')
+var scss = require('./category.scss')
 
 module.exports = angular.module('category.controllers', [])
   .controller('CategoryCtrl', function ($scope, Category) {
@@ -7,7 +8,7 @@ module.exports = angular.module('category.controllers', [])
 
   .controller('CategoryArticlesCtrl', function ($scope, $mdUtil, $timeout, $mdSidenav, $log, $stateParams, CategoryAtrticles, $mdDialog) {
     $scope.getData = function (pageNum) {
-      var defaultListNum = 2
+      var defaultListNum = 10
       CategoryAtrticles.get({
         categoryId: $stateParams.id,
         keys: ['titles.default', 'createDate'],
@@ -16,6 +17,9 @@ module.exports = angular.module('category.controllers', [])
         $scope.articles = data[0]
         $scope.articleCount = data[1]
         $scope.pageNum = Math.floor($scope.articleCount / defaultListNum)+1
+        if($scope.articleCount % defaultListNum==0 && $scope.pageNum !=1){
+          $scope.pageNum--
+        }
         $scope.range = function(num){
           return new Array(num)
         }

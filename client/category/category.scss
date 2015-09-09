@@ -1,0 +1,8 @@
+md-backdrop.md-sidenav-backdrop{
+  z-index:60;
+  position: fixed;
+}
+
+md-tabs:not(.md-no-tab-content):not(.md-dynamic-height){
+  min-height: 0;
+}

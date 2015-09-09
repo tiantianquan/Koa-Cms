@@ -27,8 +27,8 @@ module.exports = {
         loader: 'style-loader!css-loader'
       }, {
         test: /\.scss$/,
-        // loader: 'style-loader!css-loader!sass-loader'
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
+         loader: 'style-loader!css-loader!sass-loader'
+        //loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
       }, {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         loader: 'file-loader?limit=100000',
