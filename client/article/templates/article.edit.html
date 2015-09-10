@@ -28,6 +28,25 @@
       <text-angular ng-model="article.content">
       </text-angular>
     </div>
+
+    <!--关联文章-->
+    <md-divider></md-divider>
+    <md-subheader>Relation Article</md-subheader>
+    <div layout="row" flex>
+      <div ng-repeat="category in categorys" flex>
+        <md-subheader ng-click="openList(category)">{{category.name}}</md-subheader>
+        <md-list ng-show="category.showArticle">
+          <md-list-item ng-repeat="relationArticle in category.categoryArticles">
+            <md-checkbox
+                    ng-model="relationArticle.checked"
+                    ng-change = "changeRelationArticl(relationArticle)"
+                    ></md-checkbox>
+            <p>{{relationArticle.title}}</p>
+          </md-list-item>
+        </md-list>
+      </div>
+    </div>
+
   </div>
   <!--右侧配置项-->
   <md-sidenav class="md-sidenav-right" md-component-id="right" md-is-locked-open="$mdMedia('gt-md')" flex>
@@ -69,6 +88,11 @@
                 delete-hint="Press delete to remove tag"
                 secondary-placeholder="+Tag">
       </md-chips>
+
+
+
+
+
 
       <md-button class="md-raised" ng-click="create()">Create</md-button>
       <md-button class="md-raised" ng-click="cancel()">Cancel</md-button>

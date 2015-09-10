@@ -6,7 +6,38 @@ module.exports = angular.module('article.controllers', [])
     $scope.article = new Article()
     $scope.article.content = ''
     $scope.article.tags = []
-    $scope.categorys = Category.query()
+    $scope.article.relationArticle = []
+    Category.query(function (categorys) {
+      $scope.categorys = _.toArray(categorys)
+      Article.query(function (articles) {
+        $scope.articles = _.toArray(articles)
+
+        $scope.categorys.forEach(function (category) {
+          category.showArticle = true
+          var categoryArticles = _.filter($scope.articles, function (n) {
+            return n.category == category._id
+          })
+          category.categoryArticles = _.isArray(categoryArticles) ? categoryArticles : [categoryArticles]
+
+        })
+      })
+    })
+
+    $scope.openList = function (category) {
+      category.showArticle = !category.showArticle
+    }
+
+    $scope.changeRelationArticl = function (article) {
+      if (article.checked) {
+        $scope.article.relationArticle.push(article._id)
+      }
+      else {
+        _.remove($scope.article.relationArticle, function (n) {
+          return n == article._id
+        })
+      }
+    }
+
     $scope.querySearch = function (searchText) {
       var result = searchText !== '' ? $scope.categorys.filter(function (category) {
         return category.name.indexOf(searchText) === 0
@@ -30,18 +61,39 @@ module.exports = angular.module('article.controllers', [])
     }
   })
 
-  .controller('ArticleEditCtrl', function ($scope, $stateParams, Article, Category,$state,$window) {
-    $scope.categorys = Category.query()
-    $scope.article = Article.get({id: $stateParams.id}, function () {
-      $scope.selectedItem = _.find($scope.categorys, function (category) {
-        return category._id == $scope.article.category
+  .controller('ArticleEditCtrl', function ($scope, $stateParams, Article, Category, $state, $window) {
+    Category.query(function (categorys) {
+      $scope.categorys = _.toArray(categorys)
+      Article.query(function (articles) {
+        $scope.articles = _.toArray(articles)
+
+        //绑定类别及关联文章
+        $scope.categorys.forEach(function (category) {
+          category.showArticle = true
+          var categoryArticles = _.filter($scope.articles, function (n) {
+            return n.category == category._id
+          })
+          category.categoryArticles = _.isArray(categoryArticles) ? categoryArticles : [categoryArticles]
+
+          $scope.article = Article.get({id: $stateParams.id}, function () {
+            $scope.selectedItem = _.find($scope.categorys, function (category) {
+              return category._id == $scope.article.category
+            })
+            $scope.article.relationArticle.forEach(function (_id) {
+              var checkItem = _.find($scope.articles, function (n) {
+                return n._id == _id
+              })
+              if (checkItem != undefined)
+                checkItem.checked = true
+            })
+          })
+        })
       })
     })
 
-
     $scope.create = function () {
       $scope.article.category = $scope.selectedItem._id
-      Article.update({id:$scope.article._id},$scope.article,function (data) {
+      Article.update({id: $scope.article._id}, $scope.article, function (data) {
         $state.go('category.articles', {
           id: $scope.article.category
         })
@@ -50,7 +102,29 @@ module.exports = angular.module('article.controllers', [])
       })
     }
 
+    $scope.querySearch = function (searchText) {
+      var result = searchText !== '' ? $scope.categorys.filter(function (category) {
+        return category.name.indexOf(searchText) === 0
+      }) : $scope.categorys
+      return result
+    }
+
     $scope.cancel = function () {
       $window.history.back()
+    }
+
+    $scope.openList = function (category) {
+      category.showArticle = !category.showArticle
+    }
+
+    $scope.changeRelationArticl = function (article) {
+      if (article.checked) {
+        $scope.article.relationArticle.push(article._id)
+      }
+      else {
+        _.remove($scope.article.relationArticle, function (n) {
+          return n == article._id
+        })
+      }
     }
   })

@@ -29,6 +29,8 @@ var ArticleSchema = new Schema({
   tags: {type: [String]},
   //类别
   category: {type: ObjectId},
+  //关联文章
+  relationArticle:{type:[ObjectId]},
   createDate: {
     type: Date,
     default: Date.now

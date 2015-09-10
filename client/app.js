@@ -7,9 +7,13 @@ var uiRouter = require('angular-ui-router')
 var article = require('./article')
 var category = require('./category')
 var models = require('./models/models')
+
+//markdown
 //var ngSanitize = require('angular-sanitize')
 //showdown = require('showdown')
 //require('ng-showdown')
+
+//富文本
 window.rangy = require('rangy')
 window.rangy.saveSelection = require('rangy/lib/rangy-selectionsaverestore')
 require('textangular/dist/textAngular-sanitize.min')
