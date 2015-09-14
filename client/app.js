@@ -3,9 +3,11 @@ require('bootstrap/dist/css/bootstrap.css')
 var angular = require('angular')
 var ngResource = require('angular-resource')
 var ngMaterial = require('angular-material')
+var ngMessages = require('angular-messages')
 var uiRouter = require('angular-ui-router')
 var article = require('./article')
 var category = require('./category')
+var login = require('./login')
 var models = require('./models/models')
 
 //markdown
@@ -22,7 +24,7 @@ require('textangular')
 require('font-awesome/css/font-awesome.css')
 
 
-var app = angular.module('admin', ['ngSanitize','textAngular',uiRouter, ngMaterial, ngResource, article.name, category.name, models.name])
+var app = angular.module('admin', ['ngSanitize','textAngular',uiRouter, ngMaterial,ngMessages, ngResource, article.name,login.name, category.name, models.name])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -30,6 +32,25 @@ var app = angular.module('admin', ['ngSanitize','textAngular',uiRouter, ngMateri
     .state('home', {
       url: '/',
       views: {}
+    })
+
+    .state('login',{
+      url:'/login',
+      views:{
+        'main':{
+          templateUrl:'login/templates/login.html',
+          controller:'LoginCtrl'
+        }
+      }
+    })
+    .state('register',{
+      url:'/register',
+      views:{
+        'main':{
+          templateUrl:'login/templates/register.html',
+          controller:'RegisterCtrl'
+        }
+      }
     })
 
   .state('category', {

@@ -5,6 +5,9 @@ var ObjectId = Schema.ObjectId
 var AuthorSchema = new Schema({
   name:{
     type:String
+  },
+  password:{
+    type:String
   }
 })
 

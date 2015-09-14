@@ -5,9 +5,6 @@ var static = require('koa-static')
 var path = require('path')
 var bodyParser = require('koa-bodyparser')
 var qs = require('koa-qs')
-var webpackMiddleware = require('koa-webpack-dev-middleware')
-var webpack = require('webpack')
-
 
 var router = require('./controllers')
 var model = require('./models')
@@ -15,6 +12,19 @@ var config = require('../config')
 
 //初始化
 var app = koa();
+
+//登陆
+var session = require('koa-generic-session')
+app.use(session())
+app.keys = ['1231233123']
+
+//app.use(function*() {
+//  this.session.count = this.session.count || 0;
+//  this.session.count++;
+//  this.body = this.session.count;
+//})
+
+
 //查询字符串解析
 qs(app)
 //静态资源
@@ -23,6 +33,7 @@ config.staticPaths.forEach(function (path) {
     index: 'aa'
   }))
 })
+
 
 //链接数据库
 mongoose.connect(config.mongoStr)
