@@ -7,7 +7,6 @@ module.exports = angular.module('login.controllers', [])
   })
 
   .controller('RegisterCtrl', function ($scope) {
-    $scope.author = {rePassword: '213123'}
   })
   .directive('passwordSame', function () {
     return {
