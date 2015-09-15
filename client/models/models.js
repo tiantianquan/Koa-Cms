@@ -26,10 +26,10 @@ module.exports = angular.module('models', [])
   })
 
   .factory('CategoryAtrticles', function ($resource, ModelUtil) {
-    return $resource('/admin/category-articles/:categoryId?keys=:keys&&pageAgr=:pageAgr',null,{
-      get:{
-        method:'GET',
-        isArray:true
+    return $resource('/admin/category-articles/:categoryId?keys=:keys&&pageAgr=:pageAgr', null, {
+      get: {
+        method: 'GET',
+        isArray: true
       }
     })
   })
@@ -37,3 +37,12 @@ module.exports = angular.module('models', [])
   .factory('Author', function ($resource, ModelUtil) {
     return $resource('/admin/author/:id', ModelUtil.commonOpt.param, ModelUtil.commonOpt.method)
   })
+
+  .factory('Login', function ($http) {
+    return {
+      post: function (doc,cb) {
+        $http.post('/admin/login',doc,cb)
+      }
+    }
+  })
+

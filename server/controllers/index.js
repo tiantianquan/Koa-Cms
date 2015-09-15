@@ -33,6 +33,8 @@ router.post('/admin/author', author.create, author.admin.create)
 router.put('/admin/author/:id', author.updateById, author.admin.updateById)
 router.del('/admin/author/:id', author.deleteById, author.admin.deleteById)
 
+router.post('/admin/login', author.getUser, author.admin.getUser)
+
 
 
 module.exports = router
