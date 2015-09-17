@@ -2,12 +2,14 @@ var router = require('koa-router')()
 var article = require('./article')
 var author = require('./author')
 var category = require('./category')
+var login = require('./login')
 var send = require('koa-send')
 var config = require('../../config')
 
 
 router.get('/admin', function*(next) {
-  yield send(this,config.staticPaths[1]+'/index.html');
+  //this.cookies.set('inLgoinPage', false, { signed: false,http:false})
+  yield send(this,config.staticPaths[1]+'/index.html')
 })
 
 //article
@@ -29,11 +31,19 @@ router.get('/admin/category-articles/:categoryId',category.getCategoryArticles,c
 //author
 router.get('/admin/author', author.getAll, author.admin.getAll)
 router.get('/admin/author/:id', author.getById,author.admin.getById)
+//注册
 router.post('/admin/author', author.create, author.admin.create)
 router.put('/admin/author/:id', author.updateById, author.admin.updateById)
 router.del('/admin/author/:id', author.deleteById, author.admin.deleteById)
 
-router.post('/admin/login', author.getUser, author.admin.getUser)
+
+//登陆
+router.post('/admin/login', login.login)
+router.post('/admin/logout',function*(next){
+  this.session = null
+  this.body = 'logout'
+  yield next
+})
 
 
 

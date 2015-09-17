@@ -18,12 +18,6 @@ var session = require('koa-generic-session')
 app.use(session())
 app.keys = ['1231233123']
 
-//app.use(function*() {
-//  this.session.count = this.session.count || 0;
-//  this.session.count++;
-//  this.body = this.session.count;
-//})
-
 
 //查询字符串解析
 qs(app)
@@ -32,6 +26,45 @@ config.staticPaths.forEach(function (path) {
   app.use(static(path, {
     index: 'aa'
   }))
+})
+
+app.use(function*(next) {
+  if (this.session.isLogin === undefined) {
+    this.session.isLogin = false
+  }
+  //if (this.session.visitOnce === undefined) {
+  //  this.session.visitOnce = false
+  //}
+  //
+  //if (!this.session.visitOnce) {
+  //  if (!this.session.isLogin) {
+  //    this.session.visitOnce = true
+  //    this.redirect('/admin#/login')
+  //  }
+  //  else{
+  //    yield next
+  //  }
+  //}
+  //else {
+  //  this.session.visitOnce = false
+  //  yield next
+  //}
+  if (this.cookies.get('loginPage') === undefined)
+    this.cookies.set('loginPage', false, {sign: false, http: false})
+
+
+  if (!this.session.isLogin) {
+    if (this.cookies.get('loginPage')) {
+      this.cookies.set('loginPage', false, {sign: false, http: false})
+      yield next
+    } else {
+      this.cookies.set('loginPage', true, {sign: false, http: false})
+      this.redirect('/admin#/login')
+    }
+  }
+  else {
+    yield next
+  }
 })
 
 
@@ -50,8 +83,9 @@ app.use(bodyParser())
 //挂载路由
 app.use(router.routes())
 
+
 app.on('error', function (err) {
-  log.error('server error', err)
+  console.log('server error', err)
 })
 
 

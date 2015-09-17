@@ -13,13 +13,15 @@
   <script type="text/javascript" src="bundle.js"></script>
 </head>
 
-<body>
+<body ng-controller="ctrl">
 
 <md-toolbar>
   <div class="md-toolbar-tools">
-    <span>Admin</span>
+    <span ui-sref="home">Admin</span>
     <!-- fill up the space between left and right area -->
     <span flex></span>
+    <md-button ui-sref="login" >Login</md-button>
+    <md-button ng-click="logout()">Logout</md-button>
     <md-button ui-sref="category">分类</md-button>
     <md-button class="md-fab md-primary" ui-sref="article.create">
       <md-icon md-svg-src="../fonts/icons/ic_add_24px.svg" aria-label="add"></md-icon>
