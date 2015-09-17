@@ -28,46 +28,6 @@ config.staticPaths.forEach(function (path) {
   }))
 })
 
-app.use(function*(next) {
-  if (this.session.isLogin === undefined) {
-    this.session.isLogin = false
-  }
-  //if (this.session.visitOnce === undefined) {
-  //  this.session.visitOnce = false
-  //}
-  //
-  //if (!this.session.visitOnce) {
-  //  if (!this.session.isLogin) {
-  //    this.session.visitOnce = true
-  //    this.redirect('/admin#/login')
-  //  }
-  //  else{
-  //    yield next
-  //  }
-  //}
-  //else {
-  //  this.session.visitOnce = false
-  //  yield next
-  //}
-  if (this.cookies.get('loginPage') === undefined)
-    this.cookies.set('loginPage', false, {sign: false, http: false})
-
-
-  if (!this.session.isLogin) {
-    if (this.cookies.get('loginPage')) {
-      this.cookies.set('loginPage', false, {sign: false, http: false})
-      yield next
-    } else {
-      this.cookies.set('loginPage', true, {sign: false, http: false})
-      this.redirect('/admin#/login')
-    }
-  }
-  else {
-    yield next
-  }
-})
-
-
 //链接数据库
 mongoose.connect(config.mongoStr)
 //初始化模板引擎

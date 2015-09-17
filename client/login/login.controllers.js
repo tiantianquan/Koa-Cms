@@ -5,7 +5,7 @@ module.exports = angular.module('login.controllers', [])
   .controller('LoginCtrl', function ($scope,$cookies, Login) {
     $scope.login = function () {
       //写cookie
-      $cookies.put('loginPage',true)
+
       Login.post($scope.author, function (state) {
         console.log(state)
       })
