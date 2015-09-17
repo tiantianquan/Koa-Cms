@@ -3,39 +3,35 @@ var angular = require('angular')
 module.exports = angular.module('models', [])
 
   .factory('myInterceptor', function ($q, $injector, $location, $cookies) {
-
     var interceptor = {
-      'request': function (config) {
-        console.log(config)
-        if (config.url.split('/')[0] == 'login') {
+      request: function (config) {
+        if (config.url.split('/')[0] == 'login' || config.url.split('/')[2]=='login' ) {
           $cookies.put('loginPage', true)
         }
         else {
           $cookies.put('loginPage', false)
         }
-// 成功的请求方法
+        console.log( $cookies.get('loginPage'))
         return config; // 或者 $q.when(config);
       },
-      'response': function (response) { // 响应成功
-        if (response.status == 401) {
-          $injector.get('$state').go('login')
-        }
-        return response; // 或者 $q.when(config);
+      response: function (response) { // 响应成功
+        return response
       },
-      'requestError': function (rejection) {
+      requestError: function (rejection) {
 // 请求发生了错误,如果能从错误中恢复,可以返回一个新的请求或promise return response; // 或新的promise
 // 或者,可以通过返回一个rejection来阻止下一步
 // return $q.reject(rejection);
       },
-      'responseError': function (rejection) {
+      responseError: function (rejection) {
         if (rejection.status == 401) {
           $injector.get('$state').go('login')
         }
+        return rejection
 // 请求发生了错误,如果能从错误中恢复,可以返回一个新的响应或promise return rejection; // 或新的promise
 // 或者,可以通过返回一个rejection来阻止下一步
 // return $q.reject(rejection);
       }
-    };
+    }
     return interceptor;
   })
 

@@ -14,35 +14,35 @@ var adminRouter = new Router({
 
 
 adminRouter.get('/', function*(next) {
+  if (this.cookies.get('loginPage') === undefined)
+    this.cookies.set('loginPage', false, {sign: false, http: false})
   yield send(this, config.staticPaths[1] + '/index.html')
   yield next
 })
-//var num = 0
-////TODO:拦截静态资源
-//adminRouter.use(function*(next) {
-//  console.log(num++)
-//  if (this.session.isLogin === undefined) {
-//    this.session.isLogin = false
-//  }
-//
-//  if (this.cookies.get('loginPage') === undefined)
-//    this.cookies.set('loginPage', false, {sign: false, http: false})
-//
-//
-//  if (!this.session.isLogin) {
-//    if (this.cookies.get('loginPage') === 'true' || this.cookies.get('loginPage') === true) {
-//      //this.cookies.set('loginPage', false, {sign: false, http: false})
-//      yield next
-//    } else {
-//      this.cookies.set('loginPage', true, {sign: false, http: false})
-//      this.response.status = 401
-//      return
-//    }
-//  }
-//  else {
-//    yield next
-//  }
-//})
+//TODO:拦截静态资源
+adminRouter.use(function*(next) {
+  if (this.session.isLogin === undefined) {
+    this.session.isLogin = false
+  }
+
+  if (this.cookies.get('loginPage') === undefined)
+    this.cookies.set('loginPage', false, {sign: false, http: false})
+
+  var l = this.cookies.get('loginPage')
+  console.log(l)
+
+  if (!this.session.isLogin) {
+    if (l === 'true' || l === true) {
+      yield next
+    } else {
+      this.response.status = 401
+      this.body = ''
+    }
+  }
+  else {
+    yield next
+  }
+})
 
 //article
 adminRouter.get('/article', article.getAll, article.admin.getAll)
@@ -77,7 +77,7 @@ adminRouter.post('/logout', function*(next) {
   yield next
 })
 
-router.use('',adminRouter.routes())
+router.use('', adminRouter.routes())
 
 
 module.exports = router

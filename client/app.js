@@ -28,35 +28,6 @@ var app = angular.module('admin', ['ngSanitize', 'textAngular', uiRouter, ngCook
 
   .config(function ($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
 
-    //$httpProvider.interceptors.push(function ($q, $injector) {
-    //  return {
-    //    'request': function (config) {
-    //      console.log('req')
-    //      return config
-    //    },
-    //
-    //    'response': function (response) {
-    //      console.log(response)
-    //      function success(response) {
-    //        return response
-    //      }
-    //
-    //      function error(response) {
-    //        if (response.status === 401) {
-    //          $injector.get('$state').go('login');
-    //        }
-    //        else {
-    //          return response
-    //        }
-    //        return response
-    //      }
-    //
-    //      return function (promise) {
-    //        return promise.then(success, error);
-    //      }
-    //    }
-    //  }
-    //})
     $httpProvider.interceptors.push('myInterceptor')
 
     $stateProvider
