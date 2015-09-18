@@ -11,10 +11,12 @@ var login = {
 
     if (user !== null && user.password == this.request.body.password) {
       this.session.isLogin = true
+      this.cookies.set('isLogin', true, {sign: false, httpOnly: false})
       this.body = 'OK'
     }
     else {
       this.session.isLogin = false
+      this.cookies.set('isLogin', false, {sign: false, httpOnly: false})
       this.body = 'Fail'
     }
     yield next

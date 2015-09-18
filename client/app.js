@@ -103,6 +103,17 @@ var app = angular.module('admin', ['ngSanitize', 'textAngular', uiRouter, ngCook
     $urlRouterProvider.otherwise('/')
   })
 
+  .run(function ($rootScope, $cookies, $state) {
+    //TODO:登陆重定向
+    $rootScope.$on('$stateChangeStart',
+      function (event, toState, toParams, fromState, fromParams) {
+        if (!$cookies.get('isLogin') && toState.name !== 'login') {
+          event.preventDefault();
+          $state.go('login')
+        }
+      })
+  })
+
   .controller('ctrl', function ($scope, $http) {
     $scope.logout = function () {
       $http.post('/admin/logout', null, function (err, doc) {

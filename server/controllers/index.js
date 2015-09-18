@@ -15,7 +15,9 @@ var adminRouter = new Router({
 
 adminRouter.get('/', function*(next) {
   if (this.cookies.get('loginPage') === undefined)
-    this.cookies.set('loginPage', false, {sign: false, http: false})
+    this.cookies.set('loginPage', false, {sign: false, httpOnly: false})
+  if (this.cookies.get('isLogin') === undefined)
+    this.cookies.set('isLogin', false, {sign: false, httpOnly: false})
   yield send(this, config.staticPaths[1] + '/index.html')
   yield next
 })
@@ -24,11 +26,14 @@ adminRouter.use(function*(next) {
   if (this.session.isLogin === undefined) {
     this.session.isLogin = false
   }
+  if (this.cookies.get('isLogin') === undefined)
+    this.cookies.set('isLogin', false, {sign: false, httpOnly: false})
 
   if (this.cookies.get('loginPage') === undefined)
-    this.cookies.set('loginPage', false, {sign: false, http: false})
+    this.cookies.set('loginPage', false, {sign: false, httpOnly: false})
 
   var l = this.cookies.get('loginPage')
+  var il = this.cookies.get('isLogin')
   console.log(l)
 
   if (!this.session.isLogin) {
@@ -40,6 +45,19 @@ adminRouter.use(function*(next) {
     }
   }
   else {
+    yield next
+  }
+},function*(next){
+  if(!this.session.isLogin){
+    var u = this.request.originalUrl.split('/')
+    if(u[1] =='login' || u[2] == 'login'){
+      yield next
+    }
+    else{
+      this.response.status = 401
+    }
+  }
+  else{
     yield next
   }
 })
@@ -74,6 +92,7 @@ adminRouter.post('/login', login.login)
 adminRouter.post('/logout', function*(next) {
   this.session = null
   this.body = 'logout'
+  this.cookies.set('isLogin', false, {sign: false, httpOnly: false})
   yield next
 })
 
