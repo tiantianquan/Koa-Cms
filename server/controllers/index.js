@@ -14,53 +14,53 @@ var adminRouter = new Router({
 
 
 adminRouter.get('/', function*(next) {
-  if (this.cookies.get('loginPage') === undefined)
-    this.cookies.set('loginPage', false, {sign: false, httpOnly: false})
   if (this.cookies.get('isLogin') === undefined)
     this.cookies.set('isLogin', false, {sign: false, httpOnly: false})
   yield send(this, config.staticPaths[1] + '/index.html')
   yield next
 })
 //TODO:拦截静态资源
-adminRouter.use(function*(next) {
-  if (this.session.isLogin === undefined) {
-    this.session.isLogin = false
-  }
-  if (this.cookies.get('isLogin') === undefined)
-    this.cookies.set('isLogin', false, {sign: false, httpOnly: false})
-
-  if (this.cookies.get('loginPage') === undefined)
-    this.cookies.set('loginPage', false, {sign: false, httpOnly: false})
-
-  var l = this.cookies.get('loginPage')
-  var il = this.cookies.get('isLogin')
-  console.log(l)
-
-  if (!this.session.isLogin) {
-    if (l === 'true' || l === true) {
+adminRouter.use(
+  //function*(next) {
+  //  if (this.session.isLogin === undefined) {
+  //    this.session.isLogin = false
+  //  }
+  //  if (this.cookies.get('isLogin') === undefined)
+  //    this.cookies.set('isLogin', false, {sign: false, httpOnly: false})
+  //
+  //  if (this.cookies.get('loginPage') === undefined)
+  //    this.cookies.set('loginPage', false, {sign: false, httpOnly: false})
+  //
+  //  var l = this.cookies.get('loginPage')
+  //  var il = this.cookies.get('isLogin')
+  //  console.log(l)
+  //
+  //  if (!this.session.isLogin) {
+  //    if (l === 'true' || l === true) {
+  //      yield next
+  //    } else {
+  //      this.response.status = 401
+  //      this.body = ''
+  //    }
+  //  }
+  //  else {
+  //    yield next
+  //  }
+  //}
+  function*(next) {
+    if (!this.session.isLogin) {
+      var u = this.request.originalUrl.split('/')
+      if (u[1] == 'login' || u[2] == 'login') {
+        yield next
+      }
+      else {
+        this.response.status = 401
+      }
+    }
+    else {
       yield next
-    } else {
-      this.response.status = 401
-      this.body = ''
     }
-  }
-  else {
-    yield next
-  }
-},function*(next){
-  if(!this.session.isLogin){
-    var u = this.request.originalUrl.split('/')
-    if(u[1] =='login' || u[2] == 'login'){
-      yield next
-    }
-    else{
-      this.response.status = 401
-    }
-  }
-  else{
-    yield next
-  }
-})
+  })
 
 //article
 adminRouter.get('/article', article.getAll, article.admin.getAll)
@@ -94,6 +94,13 @@ adminRouter.post('/logout', function*(next) {
   this.body = 'logout'
   this.cookies.set('isLogin', false, {sign: false, httpOnly: false})
   yield next
+})
+
+
+
+
+adminRouter.post('/upload',  function*(next) {
+  this.body = this.req.file
 })
 
 router.use('', adminRouter.routes())

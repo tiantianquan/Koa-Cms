@@ -1,8 +1,37 @@
 var angular = require('angular')
 var _ = require('lodash')
+require('./article.edit.scss')
+
 
 module.exports = angular.module('article.controllers', [])
   .controller('ArticleCreateCtrl', function ($scope, $state, Article, Category, $window) {
+    $scope.uploadFiles = function (file) {
+      $scope.f = file;
+      if (file && !file.$error) {
+        file.upload = Upload.upload({
+          url: '/admin/upload',
+          file: file
+        })
+
+        file.upload.then(function (response) {
+          $timeout(function () {
+            file.result = response.data;
+            $scope.path = '/images/' + file.result.filename
+            $scope.news.content += '<img src="' + $scope.path + '">'
+          })
+        }, function (response) {
+          if (response.status > 0)
+            $scope.errorMsg = response.status + ': ' + response.data;
+        })
+
+        file.upload.progress(function (evt) {
+          file.progress = Math.min(100, parseInt(100.0 *
+            evt.loaded / evt.total));
+        })
+      }
+    }
+
+
     $scope.article = new Article()
     $scope.article.content = ''
     $scope.article.tags = []

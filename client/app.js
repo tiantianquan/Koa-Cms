@@ -1,10 +1,10 @@
-require('bootstrap/dist/css/bootstrap.css')
 var angular = require('angular')
 var ngResource = require('angular-resource')
 var ngMaterial = require('angular-material')
 var ngMessages = require('angular-messages')
 var uiRouter = require('angular-ui-router')
 var ngCookies = require('angular-cookies')
+var ngFileUpload = require('ng-file-upload')
 var article = require('./article')
 var category = require('./category')
 var login = require('./login')
@@ -24,7 +24,7 @@ require('textangular')
 require('font-awesome/css/font-awesome.css')
 
 
-var app = angular.module('admin', ['ngSanitize', 'textAngular', uiRouter, ngCookies, ngMaterial, ngMessages, ngResource, article.name, login.name, category.name, models.name])
+var app = angular.module('admin', ['ngSanitize', 'textAngular',ngFileUpload, uiRouter, ngCookies, ngMaterial, ngMessages, ngResource, article.name, login.name, category.name, models.name])
 
   .config(function ($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
 

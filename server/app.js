@@ -5,6 +5,7 @@ var static = require('koa-static')
 var path = require('path')
 var bodyParser = require('koa-bodyparser')
 var qs = require('koa-qs')
+var multer = require('koa-multer')
 
 var router = require('./controllers')
 var model = require('./models')
@@ -27,6 +28,8 @@ config.staticPaths.forEach(function (path) {
     index: 'aa'
   }))
 })
+
+app.use(multer({ dest: '../public/images'}))
 
 //链接数据库
 mongoose.connect(config.mongoStr)
