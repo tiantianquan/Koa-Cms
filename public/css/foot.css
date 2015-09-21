@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{ padding:0; margin:0; font-family:'微软雅黑'; font-size:14px; font-style:nome;text-decoration:none; list-style:none; font-weight:bold;}
+
+/*页脚*/
+.foot{ width:100%; height:100%; float:left; background:#393939;}
+.foot-01{ width:80%; margin:0 auto;margin-top:1.08%;}
+#ot{ width:100%; float:left}
+#ot-01{ width:442px; margin:0 auto;}
+#ot-01 li{ float:left; color:#fff;}
+#ot-01 li a:hover{ color:#a7a6a6；}
+.foot-02{ width:75%; margin:0 auto;}
+#ot-02{ width:442px; margin:0 auto; margin-top:0.8%;}
+#ot-02 li{ float:left; color:#fff;}
+.foot-03{ width:75%; margin:0 auto;}
+#ot-03{ width:442px; margin:0 auto; margin-top:0.8%;}
+#ot-03 li{ float:left; color:#fff;}
+#o-01{display:none;}
+@media screen and (max-width: 1024px) { 
+.foot{ width:100%; height:100%; float:left; background:#393939;}
+.foot-01{ width:75%; margin:0 auto;margin-top:1.08%; display:none;}
+#ot{ width:100%; float:left}
+#ot-01{ width:442px; margin:0 auto;}
+#ot-01 li{ float:left; color:#fff;}
+#ot-01 li a:hover{ color:#a7a6a6；}
+.foot-02{ width:75%; margin:0 auto;}
+#ot-02{ width:442px; margin:0 auto; margin-top:0.8%;}
+#ot-02 li{ float:left; color:#fff;}
+.foot-03{ width:75%; margin:0 auto;}
+#ot-03{ width:442px; margin:0 auto; margin-top:0.8%;}
+#ot-03 li{ float:left; color:#fff;}
+#ot-03 li a{ font-size:18px;}
+#o{ display:none;}
+
+
+
+
+
+}

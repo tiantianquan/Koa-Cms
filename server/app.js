@@ -29,7 +29,7 @@ config.staticPaths.forEach(function (path) {
   }))
 })
 
-app.use(multer({ dest: '../public/images'}))
+app.use(multer({ dest:config.staticPaths[0] +'/images/'}))
 
 //链接数据库
 mongoose.connect(config.mongoStr)
@@ -40,7 +40,7 @@ render(app, {
   viewExt: 'ejs',
   cache: false,
   debug: true,
-});
+})
 app.use(bodyParser())
 
 //挂载路由

@@ -10,6 +10,8 @@ var category = require('./category')
 var login = require('./login')
 var models = require('./models/models')
 
+var angularMaterialCss= require('angular-material/angular-material.min.css')
+
 //markdown
 //var ngSanitize = require('angular-sanitize')
 //showdown = require('showdown')

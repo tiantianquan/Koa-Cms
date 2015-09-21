@@ -4,7 +4,7 @@ require('./article.edit.scss')
 
 
 module.exports = angular.module('article.controllers', [])
-  .controller('ArticleCreateCtrl', function ($scope, $state, Article, Category, $window) {
+  .controller('ArticleCreateCtrl', function ($scope, $timeout, $state, Article, Category, $window, Upload) {
     $scope.uploadFiles = function (file) {
       $scope.f = file;
       if (file && !file.$error) {
@@ -16,8 +16,8 @@ module.exports = angular.module('article.controllers', [])
         file.upload.then(function (response) {
           $timeout(function () {
             file.result = response.data;
-            $scope.path = '/images/' + file.result.filename
-            $scope.news.content += '<img src="' + $scope.path + '">'
+            $scope.path = '/images/' + file.result.name
+            //$scope.news.content += '<img src="' + $scope.path + '">'
           })
         }, function (response) {
           if (response.status > 0)
@@ -90,7 +90,33 @@ module.exports = angular.module('article.controllers', [])
     }
   })
 
-  .controller('ArticleEditCtrl', function ($scope, $stateParams, Article, Category, $state, $window) {
+  .controller('ArticleEditCtrl', function ($scope,$timeout,Upload, $stateParams, Article, Category, $state, $window) {
+
+    $scope.uploadFiles = function (file) {
+      $scope.f = file;
+      if (file && !file.$error) {
+        file.upload = Upload.upload({
+          url: '/admin/upload',
+          file: file
+        })
+
+        file.upload.then(function (response) {
+          $timeout(function () {
+            file.result = response.data;
+            $scope.path = '/images/' + file.result.name
+            //$scope.news.content += '<img src="' + $scope.path + '">'
+          })
+        }, function (response) {
+          if (response.status > 0)
+            $scope.errorMsg = response.status + ': ' + response.data;
+        })
+
+        file.upload.progress(function (evt) {
+          file.progress = Math.min(100, parseInt(100.0 *
+            evt.loaded / evt.total));
+        })
+      }
+    }
     Category.query(function (categorys) {
       $scope.categorys = _.toArray(categorys)
       Article.query(function (articles) {

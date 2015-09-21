@@ -21,32 +21,6 @@ adminRouter.get('/', function*(next) {
 })
 //TODO:拦截静态资源
 adminRouter.use(
-  //function*(next) {
-  //  if (this.session.isLogin === undefined) {
-  //    this.session.isLogin = false
-  //  }
-  //  if (this.cookies.get('isLogin') === undefined)
-  //    this.cookies.set('isLogin', false, {sign: false, httpOnly: false})
-  //
-  //  if (this.cookies.get('loginPage') === undefined)
-  //    this.cookies.set('loginPage', false, {sign: false, httpOnly: false})
-  //
-  //  var l = this.cookies.get('loginPage')
-  //  var il = this.cookies.get('isLogin')
-  //  console.log(l)
-  //
-  //  if (!this.session.isLogin) {
-  //    if (l === 'true' || l === true) {
-  //      yield next
-  //    } else {
-  //      this.response.status = 401
-  //      this.body = ''
-  //    }
-  //  }
-  //  else {
-  //    yield next
-  //  }
-  //}
   function*(next) {
     if (!this.session.isLogin) {
       var u = this.request.originalUrl.split('/')
@@ -97,10 +71,15 @@ adminRouter.post('/logout', function*(next) {
 })
 
 
+adminRouter.post('/upload', function*(next) {
+  this.body = this.req.files.file
+  this.status = 200
+  yield next
+})
 
 
-adminRouter.post('/upload',  function*(next) {
-  this.body = this.req.file
+router.get('/', function*(next) {
+  yield this.render('home')
 })
 
 router.use('', adminRouter.routes())
