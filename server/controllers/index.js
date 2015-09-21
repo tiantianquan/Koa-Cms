@@ -79,7 +79,7 @@ adminRouter.post('/upload', function*(next) {
 
 
 router.get('/', function*(next) {
-  yield this.render('home')
+  yield this.render('index')
 })
 
 router.use('', adminRouter.routes())
